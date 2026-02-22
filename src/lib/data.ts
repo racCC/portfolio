@@ -19,6 +19,7 @@ export const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
+  { name: "Blogs", href: "/blog" },
 ];
 
 export const stackHighlights = [

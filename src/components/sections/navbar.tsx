@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Menu, FileText } from "lucide-react";
 import { FaGithub, FaLinkedinIn,FaXTwitter } from "react-icons/fa6";
@@ -15,6 +16,14 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const activeSection = useActiveSection();
   const mounted = useMounted();
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    if (href.startsWith("/")) {
+      return pathname === href;
+    }
+    return activeSection === href.slice(1);
+  }
 
   return (
     <motion.header
@@ -46,7 +55,7 @@ export function Navbar() {
               key={link.name}
               href={link.href}
               className={`px-3 py-2 text-sm transition-colors ${
-                activeSection === link.href.slice(1)
+                isActive(link.href)
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               }`}
@@ -92,7 +101,7 @@ export function Navbar() {
           <Button variant="ghost" size="icon" className="h-9 w-9" asChild>
             <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer">
               <FileText className="h-4 w-4" />
-              
+
             </a>
           </Button>
         </div>
